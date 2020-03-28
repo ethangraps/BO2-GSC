@@ -1,16 +1,30 @@
-botsifempty(){
+botsifempty(){		
 	level endon("game_ended");
 	level waittill("connected", player);
 	wait 5;
-	if(level.players.size < 4){ // If there less then 4 client the game spawn 8 bot
-		player thread addBots( 8 ); // Bot to spawn on game start
+	cont = 0;
+	foreach(p in level.players){
+		if(isDefined(player.pers["isBot"]) && player.pers["isBot"]){	  
+		}else{
+			cont++;
+		}
+	}
+	if(cont < 4){
+		player thread addBots( 8 );
 	}
 	for(;;){
 		kickedBot = false;
+		cont = 0;
 		level waittill("connected", player);
-		if(level.players.size > 5){
+		foreach(p in level.players){
+			if(isDefined(p.pers["isBot"]) && p.pers["isBot"]){	  
+			}else{
+				cont++;
+			}
+		}
+		if(cont < 4){
 			foreach(p in level.players){
-				if(isDefined(player.pers["isBot"]) && player.pers["isBot"] && kickedBot == false){	  
+				if(isDefined(p.pers["isBot"]) && p.pers["isBot"] && kickedBot == false){	  
 					kick(p getentitynumber(), "EXE_PLAYERKICKED");
 					kickedBot = true;
 				}
