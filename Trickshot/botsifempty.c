@@ -2,8 +2,8 @@ botsifempty(){
 	level endon("game_ended");
 	level waittill("connected", player);
 	wait 5;
-	if(level.players.size < 4){
-		player thread addBots( 8 );
+	if(level.players.size < 4){ // If there less then 4 client the game spawn 8 bot
+		player thread addBots( 8 ); // Bot to spawn on game start
 	}
 	for(;;){
 		kickedBot = false;
