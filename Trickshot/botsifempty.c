@@ -1,4 +1,4 @@
-botsifempty(){		
+botsifempty(){ //Made by DoktorSAS
 	level endon("game_ended");
 	level waittill("connected", player);
 	wait 1;
@@ -41,7 +41,7 @@ botsifempty(){
 		}
 	}
 }
-kickBots( num ){
+kickBots( num ){ //Made by DoktorSAS
 	i = level.players.size;
 	while(i > -1 && num > 0){
 		if(level.players[i].pers["isBot"] && isDefined(level.players[i].botOwner) && level.players[i].botOwner == "///////////////////////////"){
@@ -51,10 +51,10 @@ kickBots( num ){
 		i++;
 	}
 }
-kickSelf( p ){
+kickSelf( p ){ //Made by DoktorSAS
 	kick(p getentitynumber(), "EXE_PLAYERKICKED");
 }
-addBots( num ){
+addBots( num ){ //Made by DoktorSAS
 	while(num > -1){
 		self thread maps\mp\bots\_bot::spawn_bot("autoassign");
 		wait 1;
