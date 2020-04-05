@@ -19,9 +19,27 @@ WelcomeMessage(line1, line2, icon, glow){
 	hmb.hideWhenInMenu=true;
 	hmb.archived=false;
 	self thread maps\mp\gametypes\_hud_message::notifyMessage(hmb);
+        self thread AnimatedTextCUSTOMPOS("Welcome To *ServerName*", <insertXpos>, <insertYpos>);
 	self thread AnimatedTextTOP("Welcome To *ServerName*");
 	self thread AnimatedTextCENTER("Welcome To *ServerName*");
 	self thread AnimatedTextBOTTOM("Welcome To *ServerName*");
+        self thread AnimatedTextCUSTOMPOSScrolling("Welcome To *ServerName*", <insertYpos>);
+	self thread AnimatedTextTOPScrolling("Welcome To *ServerName*");
+	self thread AnimatedTextCENTERScrolling("Welcome To *ServerName*");
+	self thread AnimatedTextBOTTOMScrolling("Welcome To *ServerName*");
+}
+AnimatedTextCUSTOMPOS(text, x, y){ //Made by DoktorSAS
+	textSubStr = getSubStr(text,0,text.size);
+	result = "";
+	self.welcome = self createFontString("objective",2);
+	self.welcome setPoint("CENTER","CENTER",x, y);
+	self.welcome setText("");	
+	for(i=0;i<textSubStr.size;i++){
+		result = result + textSubStr[i];
+		self.welcome setText(result);
+		wait 0.5;
+	}
+	self.welcome setText("");
 }
 AnimatedTextTOP(text){ //Made by DoktorSAS
 	textSubStr = getSubStr(text,0,text.size);
@@ -62,12 +80,23 @@ AnimatedTextBOTTOM(text){ //Made by DoktorSAS
 	}
 	self.welcome setText("");
 }
-AnimatedTextTOPcrolling(text){ //Made by DoktorSAS
+AnimatedTextCUSTOMPOSScrolling(text, y){ //Made by DoktorSAS
+	self.welcome = self createFontString("objective",2);
+	self.welcome setPoint("CENTER","CENTER",-600,y);
+	self.welcome setText("");	
+	for(pos=-600;pos<=600;pos = pos + 3){
+		self.welcome setPoint("CENTER","CENTER",pos,y);
+		self.welcome setText(text);
+		wait 0.02;
+	}
+	self.welcome setText("");
+}
+AnimatedTextTOPScrolling(text){ //Made by DoktorSAS
 	self.welcome = self createFontString("objective",2);
 	self.welcome setPoint("CENTER","CENTER",-600,-200);
 	self.welcome setText("");	
 	for(pos=-600;pos<=600;pos = pos + 3){
-		self.welcome setPoint("CENTER","CENTER",pos,0);
+		self.welcome setPoint("CENTER","CENTER",pos,-200);
 		self.welcome setText(text);
 		wait 0.02;
 	}
