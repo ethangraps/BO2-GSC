@@ -1,3 +1,9 @@
+**BO2 All kind of welcome messages**
+Developer **DoktorSAS**
+
+I made a few functions to make animated welcome messages, all information about the code are inside the code, for any problems write a post under this.
+
+```
 onPlayerSpawned(){
 	self endon("disconnect");
 	level endon("game_ended");
@@ -5,6 +11,14 @@ onPlayerSpawned(){
 	self iprintln("Welcome To *ServerName*\nSecond Line\nThird Line");
 	self iprintlnbold("Welcome To *ServerName*\nSecond Line\nThird Line");
 	WelcomeMessage("Welcome To *ServerName*\n Second Line");
+        self thread AnimatedTextCUSTOMPOS("Welcome To *ServerName*", <insertXpos>, <insertYpos>);
+	self thread AnimatedTextTOP("Welcome To *ServerName*");
+	self thread AnimatedTextCENTER("Welcome To *ServerName*");
+	self thread AnimatedTextBOTTOM("Welcome To *ServerName*");
+        self thread AnimatedTextCUSTOMPOSScrolling("Welcome To *ServerName*", <insertYpos>);
+	self thread AnimatedTextTOPScrolling("Welcome To *ServerName*");
+	self thread AnimatedTextCENTERScrolling("Welcome To *ServerName*");
+	self thread AnimatedTextBOTTOMScrolling("Welcome To *ServerName*");
 	for(;;){
 		self waittill("spawned_player");
 		/*Put There if u need something there*/
@@ -19,14 +33,6 @@ WelcomeMessage(line1, line2, icon, glow){
 	hmb.hideWhenInMenu=true;
 	hmb.archived=false;
 	self thread maps\mp\gametypes\_hud_message::notifyMessage(hmb);
-        self thread AnimatedTextCUSTOMPOS("Welcome To *ServerName*", <insertXpos>, <insertYpos>);
-	self thread AnimatedTextTOP("Welcome To *ServerName*");
-	self thread AnimatedTextCENTER("Welcome To *ServerName*");
-	self thread AnimatedTextBOTTOM("Welcome To *ServerName*");
-        self thread AnimatedTextCUSTOMPOSScrolling("Welcome To *ServerName*", <insertYpos>);
-	self thread AnimatedTextTOPScrolling("Welcome To *ServerName*");
-	self thread AnimatedTextCENTERScrolling("Welcome To *ServerName*");
-	self thread AnimatedTextBOTTOMScrolling("Welcome To *ServerName*");
 }
 AnimatedTextCUSTOMPOS(text, x, y){ //Made by DoktorSAS
 	textSubStr = getSubStr(text,0,text.size);
@@ -124,3 +130,4 @@ AnimatedTextBOTTOMScrolling(text){ //Made by DoktorSAS
 	}
 	self.welcome setText("");
 }
+```
