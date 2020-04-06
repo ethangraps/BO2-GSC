@@ -44,9 +44,9 @@ updateVote(){ //Update VOTE value everytime somone vote to voters players
 }
 gameended(){
 	level waittill("game_ended");
-	if(level.maptovote["vote"][0] == level.maptovote["vote"][1] && level.maptovote["vote"][0] != level.maptovote["vote"][2]){
+	if(level.maptovote["vote"][0] == level.maptovote["vote"][1] && level.maptovote["vote"][2] <= level.maptovote["vote"][0]){
 		setmap(randomintrange(0,1));
-	}else if(level.maptovote["vote"][0] != level.maptovote["vote"][1] && level.maptovote["vote"][0] == level.maptovote["vote"][2]){
+	}else if(level.maptovote["vote"][2] <= level.maptovote["vote"][0] && level.maptovote["vote"][0] == level.maptovote["vote"][2]){
 		setmap(randomintrange(1,2));
 	}else if(level.maptovote["vote"][0] == level.maptovote["vote"][1] && level.maptovote["vote"][0] == level.maptovote["vote"][2]){
 		setmap(randomintrange(0,2));
@@ -60,6 +60,7 @@ gameended(){
 }
 setmap( index ){
 	setdvar( "sv_maprotation", "map " + level.maptovote["name"][index] );
+	printboldToAll("The next map is ^5" + level.maptovote["map"][index] );
 }
 printboldToAll(str){
 	foreach(player in level.players){
