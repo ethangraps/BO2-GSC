@@ -16,7 +16,7 @@ Nothig to say about this mod, is an easy mod where there:
 # License
 
                     GNU GENERAL PUBLIC LICENSE
-                       Version 3, 5 Apr 2020
+                       Version 3, 29 June 2007
 
  Copyright (C) 2007 Free Software Foundation, Inc. <https://fsf.org/>
  Everyone is permitted to copy and distribute verbatim copies
