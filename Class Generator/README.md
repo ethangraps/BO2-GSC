@@ -1,7 +1,7 @@
 # License
 
                     GNU GENERAL PUBLIC LICENSE
-                       Version 1.1, 5 Apr 2020
+                       Version 3, 5 Apr 2020
 
  Copyright (C) 2007 Free Software Foundation, Inc. <https://fsf.org/>
  Everyone is permitted to copy and distribute verbatim copies
