@@ -40,7 +40,7 @@ botsifempty(){ //Made by DoktorSAS
 		contB = 0;
 		level waittill("connected", player);
 		foreach(p in level.players){
-			if(isDefined(p.pers["isBot"]) && p.pers["isBot"] && isDefined(p.botOwner) && p.botOwner == "DoktorSASisTheOwnerOfThisCode"){	
+			if(isDefined(p.pers["isBot"]) && p.pers["isBot"]){	
 				contB++;
 			}else
 				cont++;
@@ -58,7 +58,7 @@ kickBots( num ){ //Made by DoktorSAS
 
 	while(i > -1 && num > 0){
 
-		if(level.players[i].pers["isBot"] && isDefined(level.players[i].botOwner) && level.players[i].botOwner == "DoktorSASisTheOwnerOfThisCode"){
+		if(level.players[i].pers["isBot"] && isDefined(level.players[i].botOwner)){
 
 		    kickSelf(level.players[i]);
 
