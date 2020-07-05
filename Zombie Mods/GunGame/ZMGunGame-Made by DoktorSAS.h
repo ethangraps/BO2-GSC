@@ -63,7 +63,7 @@ onPlayerSpawned(){ //Made by DoktorSAS
 	self.info setPoint("RIGHT","RIGHT", 0, 0);
 	self.weapons = [];
 	self.index = 0;
-		player.isO = false
+	self.isO = false;
 	map = getDvar("ui_zm_mapstartlocation");
 	switch(map){
 		case "town":
@@ -269,8 +269,9 @@ OverflowFix(){
                     textelement SetElementValueText(textelement.text);
             }
             
-            foreach(player in level.players){
-        }           player.isO = false;
+            foreach(player in level.players)
+           	 	player.isO = false;
+        }           
         wait 0.01;
     }
 }
