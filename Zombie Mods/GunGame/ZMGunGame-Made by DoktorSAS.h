@@ -61,13 +61,19 @@ onPlayerSpawned(){ //Made by DoktorSAS
 	level endon("end_game");
 	self.info = self createFontString("objective", 1.2);
 	self.info setPoint("RIGHT","RIGHT", 0, 0);
+	self.missing = self createFontString("objective", 1.2);
+	self.missing setPoint("RIGHT","RIGHT", 0, -20);
 	self.weapons = [];
 	self.index = 0;
 	self.isO = false;
+	self.info.label = &"^6Gun:  ^7";
+    self.info setValue(1);
+	self.missing.label = &"^6Missing Points:  ^7";
+	self.missing setValue(2000);
 	map = getDvar("ui_zm_mapstartlocation");
 	switch(map){
 		case "town":
-			self.weapons = strTok("m1911_zm,fiveseven_zm,beretta93r_zm,judge_zm,fivesevendw_zm,mp5k_zm,pdw57_zm,870mcs_zm,rottweil72_zm,saiga12_zm,tar21_zm,fnfal_zm,m14_zm,galil_zm,barretm82_zm,dsr50_zm,fiveseven_upgraded_zm,beretta93r_upgraded_zm,judge_upgraded_zm,fivesevendw_upgraded_zm,m1911_upgraded_zm,mp5k_upgraded_zm,pdw57_upgraded_zm,870mcs_upgraded_zm,rottweil72_upgraded_zm,saiga12_upgraded_zm,tar21_upgraded_zm,fnfal_upgraded_zm,m14_upgraded_zm,galil_upgraded_zm,barretm82_upgraded_zm,dsr50_upgraded_zm", ","); /*This is the List of the weapons, u can change it to add or remove weapons*/
+			self.weapons = strTok("m1911_zm,fiveseven_zm,beretta93r_zm,judge_zm,fivesevendw_zm,mp5k_zm,870mcs_zm,rottweil72_zm,saiga12_zm,tar21_zm,fnfal_zm,m14_zm,galil_zm,barretm82_zm,dsr50_zm,fiveseven_upgraded_zm,beretta93r_upgraded_zm,judge_upgraded_zm,fivesevendw_upgraded_zm,m1911_upgraded_zm,mp5k_upgraded_zm,870mcs_upgraded_zm,rottweil72_upgraded_zm,saiga12_upgraded_zm,tar21_upgraded_zm,fnfal_upgraded_zm,m14_upgraded_zm,galil_upgraded_zm,barretm82_upgraded_zm,dsr50_upgraded_zm", ","); /*This is the List of the weapons, u can change it to add or remove weapons*/
 		break;
 		case "prison":
 			self.weapons = strTok("m1911_zm,fiveseven_zm,beretta93r_zm,judge_zm,fivesevendw_zm,mp5k_zm,pdw57_zm,870mcs_zm,rottweil72_zm,saiga12_zm,tar21_zm,fnfal_zm,m14_zm,galil_zm,barretm82_zm,dsr50_zm,fiveseven_upgraded_zm,beretta93r_upgraded_zm,judge_upgraded_zm,fivesevendw_upgraded_zm,m1911_upgraded_zm,mp5k_upgraded_zm,pdw57_upgraded_zm,870mcs_upgraded_zm,rottweil72_upgraded_zm,saiga12_upgraded_zm,tar21_upgraded_zm,fnfal_upgraded_zm,m14_upgraded_zm,galil_upgraded_zm,barretm82_upgraded_zm,dsr50_upgraded_zm,usrpg_zm,ray_gun_zm,raygun_mark2_zm,usrpg_upgraded_zm,ray_gun_upgraded_zm,raygun_mark2_upgraded_zm", ","); /*This is the List of the weapons, u can change it to add or remove weapons*/
@@ -139,21 +145,30 @@ pointsMonitor(){ //Made by DoktorSAS
 	level endon("end_game");
 	self waittill("ready");
 	pointsForNext = 2000; /*Points needed to reaach the next gun*/
-	self.info SetElementText("Weapon: ^5"+self.index+"^1/^7"+self.weapons.size+"\nPoints: ^5"+pointsForNext); /*Print information about weapon and missing points*/
+	//self.info SetElementText("Weapon: ^5"+self.index+"^1/^7"+self.weapons.size+"\nPoints: ^5"+pointsForNext); /*Print information about weapon and missing points*/
+	valueUpate = false;
 	ended = true;
     while(ended){
     	s = self.score;
     	wait 0.05;
     	if (self.score > s && self.score != (self.score+400)){
     		pointsForNext = pointsForNext - (self.score - s);
-    		if(!self.isO)
-    		self.info SetElementText("Weapon: ^5"+self.index+"^1/^7"+self.weapons.size+"\nPoints: ^5"+pointsForNext);
+    		self.info.label = &"^6Gun:  ^7";
+			self.info setValue(self.index);
+			self.missing.label = &"^6Missing Points:  ^7";
+			self.missing setValue(pointsForNext);
+    		//self.info SetElementText("Weapon: ^5"+self.index+"^1/^7"+self.weapons.size+"\nPoints: ^5"+pointsForNext);
     	}
     	if (pointsForNext <= 0){
+    		valueUpate = false;
     		pointsForNext = 2000;
     		self.index = self.index + 1;
-    		if(!self.isO)
-    		self.info SetElementText("Weapon: ^5"+self.index+"^1/^7"+self.weapons.size+"\nPoints: ^5"+pointsForNext);
+    		self.info.label = &"^6Gun:  ^7";
+			self.info setValue(self.index);
+			self.missing.label = &"^6Missing Points:  ^7";
+			self.missing setValue(pointsForNext);
+			valueUpate = true;
+    		//self.info SetElementText("Weapon: ^5"+self.index+"^1/^7"+self.weapons.size+"\nPoints: ^5"+pointsForNext);
     	}
     	if(self.index == self.weapons.size - 1)
     		self thread setNotifyText("^5" +self.name + " ^7is at the last weapon");
@@ -163,6 +178,7 @@ pointsMonitor(){ //Made by DoktorSAS
     /*You can also add something before this, like animated endgame text or something else*/
     level notify("end_game");
 }
+
 setNotifyText(text){
 	level.notifyText SetElementText(text);
 	wait 2;
@@ -209,23 +225,30 @@ pointsMonitorRandom(){ //Made by DoktorSAS
 	self endon("disconnect");
 	level endon("end_game");
 	self waittill("ready");
-	pointsForNext = 20; /*Points needed to reaach the next gun*/
-	self.info SetElementText("Weapon: ^5"+self.index+"^1/^7"+self.weapons.size+"\nPoints: ^5"+pointsForNext); /*Print information about weapon and missing points*/
+	pointsForNext = 2000; /*Points needed to reaach the next gun*/
+	//self.info SetElementText("Weapon: ^5"+self.index+"^1/^7"+self.weapons.size+"\nPoints: ^5"+pointsForNext); /*Print information about weapon and missing points*/
+	valueUpate = false;
 	ended = true;
     while(ended){
     	s = self.score;
     	wait 0.05;
     	if (self.score > s && self.score != (self.score+400)){
     		pointsForNext = pointsForNext - (self.score - s);
-    		if(!self.isO)
-    		self.info SetElementText("Weapon: ^5"+self.index+"^1/^7"+self.weapons.size+"\nPoints: ^5"+pointsForNext);
+    		self.info.label = &"^6Gun:  ^7";
+			self.info setValue(self.index);
+			self.missing.label = &"^6Missing Points:  ^7";
+			self.missing setValue(pointsForNext);
+    		//self.info SetElementText("Weapon: ^5"+self.index+"^1/^7"+self.weapons.size+"\nPoints: ^5"+pointsForNext);
     	}
     	if (pointsForNext <= 0){
-    		pointsForNext = 200;
+    		pointsForNext = 2000;
     		self.index = self.index + 1;
     		self.randomg = randomintrange(0,self.weapons.size-1);
-    		if(!self.isO)
-    		self.info SetElementText("Weapon: ^5"+self.index+"^1/^7"+self.weapons.size+"\nPoints: ^5"+pointsForNext);
+    		self.info.label = &"^6Gun:  ^7";
+			self.info setValue(self.index);
+			self.missing.label = &"^6Missing Points:  ^7";
+			self.missing setValue(pointsForNext);
+    		//self.info SetElementText("Weapon: ^5"+self.index+"^1/^7"+self.weapons.size+"\nPoints: ^5"+pointsForNext);
     	}
     	if(self.index == self.weapons.size - 1)
     		self thread setNotifyText("^5" +self.name + " ^7is at the last weapon");
