@@ -278,6 +278,7 @@ OverflowFix(){
         	    player.isO = true;
             	player.info SetElementText("");
             	player.text SetElementText("");
+		player.missing SetElementText("");
         	}
             if (IsDefined(textanchor2)){
                 textanchor2 ClearAllTextAfterHudElem();
